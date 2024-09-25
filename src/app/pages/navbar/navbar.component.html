@@ -28,6 +28,7 @@
                         Projects
                     </a>
                     <ul class="dropdown-menu">
+                        <li *ngFor="let project of projectList" (click)="setProject(project)"> <a class="dropdown-item" >{{project.projectName}}</a></li> 
                         
                     </ul>
                 </li>
@@ -136,7 +137,8 @@
                         <div class="col-4">
                             <div class="project-model">
                                 <label for="">Project <span class="text-danger">*</span></label>
-                                <select name="ticketObj"  id="" class="form-select mb-3">
+                                <select name="ticketObj" [(ngModel)]="ticketObj.projectShortName" id="" class="form-select mb-3">
+                                    <option *ngFor="let project of projectList" [value]="project.shortName">{{project.shortName}}</option>
                                 </select>
                             </div>
                         </div>
@@ -145,7 +147,7 @@
                     <div class="row">
                         <!-- <div class="col-4">
                             <label for="">Issue Type<span class="text-danger">*</span></label>
-                            <select name="" [(ngModel)]="ticketObj.projectId" class="form-select">
+                            <select name="" class="form-select">
                                 <option value="">
                                     <i class="fa-solid fa-square-check" style="color: #7ea6ec;"></i>
                                     Select</option>
@@ -154,12 +156,13 @@
                         </div> -->
                         <div class="col-4">
                             <label for="">Status <span><i class="fa fa-circle-info"></i></span></label>
-                            <select name="" class="mb-1 form-select">
+                            <select name="" [(ngModel)]="ticketObj.status" class="mb-1 form-select">
+                                <option *ngFor="let sta of status">{{sta}}</option>
                             </select>
                         </div>
                         <div class="col-12  mb-3">
                             <label for="">Summary <span class="text-danger">*</span></label>
-                            <input type="text" name="summary" class="form-control border inputbg border-2">
+                            <input type="text" name="summary" [(ngModel)]="ticketObj.summary" class="form-control border inputbg border-2">
                         </div>
                         <div class="col-12 mb-3">
                             <label for="">Description</label>
@@ -167,7 +170,8 @@
                         </div>
                         <div class="col-6 mb-3">
                             <label for="">Assignee</label>
-                            <select name="assignedTo" class="mb-1 form-select">
+                            <select name="assignedTo" [(ngModel)]="ticketObj.assignedTo" class="mb-1 form-select">
+                                <option *ngFor="let user of userList" [value]="user.fullName">{{user.fullName}}</option>
                             </select>
                             <span><a href="" class="text-decoration-none fw-semibold">Assign to me</a></span>
                         </div>
@@ -205,7 +209,7 @@
                 <div>
 
                     <button type="button" class="btn btn-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="button" class="btn btn-primary">Create</button>
+                    <button type="button" class="btn btn-primary" (click)="onCreateTicket()">Create</button>
                 </div>
 
             </div>
